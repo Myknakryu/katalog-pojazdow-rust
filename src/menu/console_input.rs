@@ -44,3 +44,13 @@ pub fn wczytaj_pojazd() -> pojazd::Pojazd {
 
     return nowy_pojazd;
 }
+
+pub fn wybierz_zakres(min: i32, max: i32) -> i32{
+    loop{
+        println!("Wprowadź liczbę z zakresu {} - {}", min, max);
+        let x = pobierz_int();
+        if x >= min && x <= max {
+            return x;
+        }
+    }
+}

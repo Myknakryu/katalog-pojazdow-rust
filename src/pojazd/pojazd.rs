@@ -1,3 +1,5 @@
+use std::ops;
+
 #[derive(PartialEq, Eq)]
 pub enum TypSkrzyni {
     Manualna = 0,
@@ -57,5 +59,17 @@ impl Pojazd {
             }
         ))
         .to_string();
+    }
+}
+
+impl ops::Not for &Pojazd{
+    type Output = bool;
+    fn not(self) -> bool{
+        if self.skrzynia == TypSkrzyni::Automatyczna {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

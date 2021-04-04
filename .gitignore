@@ -1,1 +1,5 @@
+# Cargo compilation destination
 /target
+# VSCode config files for debugger and stuff
+.vscode
+katalog.csv

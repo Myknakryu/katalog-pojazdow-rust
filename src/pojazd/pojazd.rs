@@ -1,18 +1,19 @@
 use std::ops;
 
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Copy, Clone, Ord, PartialOrd)]
 pub enum TypSkrzyni {
     Manualna = 0,
     Automatyczna = 1,
 }
 
+#[derive(Clone,Eq, Ord, PartialEq, PartialOrd)]
 pub struct Pojazd {
-    marka: String,
-    model: String,
+    pub(in crate::pojazd) marka: String,
+    pub(in crate::pojazd) model: String,
 
-    rocznik: i32,
-    pojemnosc: i32,
-    przebieg: i32,
+    pub(in crate::pojazd) rocznik: i32,
+    pub(in crate::pojazd) pojemnosc: i32,
+    pub(in crate::pojazd) przebieg: i32,
 
     skrzynia: TypSkrzyni,
 }

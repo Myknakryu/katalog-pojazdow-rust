@@ -8,7 +8,7 @@ fn menu() {
         "Zapis katalogu z pliku",
         "Wprowadzanie nowego samochodu",
         "Wyświetlenie listy pojazdów",
-        "Wyświetlenie warunkowe",
+        "Wyświetlenie warunkowe - automat czy manual",
         "Wyświetlenie pojedynczego samochodu",
         "Sortowanie",
         "Usuniecie z katalogu",
@@ -75,6 +75,16 @@ pub fn obsluga_menu() {
                 let x = menu::console_input::wybierz_zakres(0, (katalog.len() as i32) -1);
                 let element = katalog.get(x as usize).expect("Brak elementu");
                 println!("{}", element.to_string());
+            }
+            7 => {
+                let kolumna = menu::console_input::wybierz_sortowanie();
+                let malejaca = menu::console_input::wybierz_malejaca();
+                let kopia_katalog = pojazd::sortowanie::sortuj(&katalog, kolumna, malejaca);
+                wyswietl_katalog(&kopia_katalog);
+                println!("Czy chcesz zastąpić oryginalny katalog posortowanym?\n0. Tak\n1. Nie ");
+                if menu::console_input::wybierz_zakres(0,1) == 1 {
+                    katalog = kopia_katalog;
+                }
             }
             8 => {
                 wyswietl_katalog(&katalog);

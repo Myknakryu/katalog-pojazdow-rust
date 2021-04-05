@@ -45,12 +45,40 @@ pub fn wczytaj_pojazd() -> pojazd::Pojazd {
     return nowy_pojazd;
 }
 
-pub fn wybierz_zakres(min: i32, max: i32) -> i32{
-    loop{
+pub fn wybierz_zakres(min: i32, max: i32) -> i32 {
+    loop {
         println!("Wprowadź liczbę z zakresu {} - {}", min, max);
         let x = pobierz_int();
         if x >= min && x <= max {
             return x;
         }
     }
+}
+
+pub fn wybierz_sortowanie() -> i32 {
+    println!("Wybierz sposób sortowania: ");
+    const ELEMENTY: [&str; 5] = [
+        "Marka", 
+        "Model", 
+        "Rocznik", 
+        "Pojemność", 
+        "Przebieg"
+        ];
+    let mut i = 0;
+
+    for element in ELEMENTY.iter() {
+        println!("{} {}", i, element);
+        i += 1;
+    }
+    let selekcja = wybierz_zakres(0, 4);
+    return selekcja;
+}
+
+pub fn wybierz_malejaca() -> bool {
+    println!("Czy program ma sortować malejąco\n0. Rosnąco \n1. Malejąco");
+    let selekcja = wybierz_zakres(0, 1);
+    if selekcja == 1{
+        return true;
+    }
+    return false;
 }

@@ -1,0 +1,45 @@
+name: Deploy to SFTP server
+on:
+  push:
+    branches: [ main ]
+  # run manually from Actions tab
+  workflow_dispatch:
+  
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Get latest code
+        uses: actions/checkout@v2
+        
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: npm i
+      - run: npm run build
+
+      - name: SFTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.SFTP_HOSTNAME }}
+          username: ${{ secrets.SFTP_USERNAME }}
+          password: ${{ secrets.SFTP_PASSWORD }}
+          port: 22
+          protocol: sftp
+          local-dir: ./public/
+          server-dir: /export/sun1000-2/${{ secrets.SFTP_USERNAME }}/public_html/
+          dry-run: true
+        
+        
+#      - name: Sync files
+#        uses: wangyucode/sftp-upload-action@v1.1
+#        with:
+#          host: ${{ secrets.SFTP_HOSTNAME }}
+#          username: ${{ secrets.SFTP_USERNAME }}
+#          password: ${{ secrets.SFTP_PASSWORD }}
+#          localDir: public
+#          remoteDir: /export/sun1000-2/${{ secrets.SFTP_USERNAME }}/public_html
+#          dryRun: true
